@@ -12,7 +12,6 @@ import 'package:nyxx/src/gateway/shard.dart';
 import 'package:nyxx/src/http/managers/gateway_manager.dart';
 import 'package:nyxx/src/http/managers/member_manager.dart';
 import 'package:nyxx/src/http/managers/message_manager.dart';
-import 'package:nyxx/src/models/application.dart';
 import 'package:nyxx/src/models/channel/channel.dart';
 import 'package:nyxx/src/models/channel/guild_channel.dart';
 import 'package:nyxx/src/models/channel/text_channel.dart';

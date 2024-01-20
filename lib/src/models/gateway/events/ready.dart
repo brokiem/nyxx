@@ -1,4 +1,3 @@
-import 'package:nyxx/src/models/application.dart';
 import 'package:nyxx/src/models/gateway/event.dart';
 import 'package:nyxx/src/models/guild/guild.dart';
 import 'package:nyxx/src/models/user/user.dart';

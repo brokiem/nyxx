@@ -1,6 +1,4 @@
-import 'dart:convert';
 
-import 'package:nyxx/src/builders/application.dart';
 import 'package:nyxx/src/client.dart';
 import 'package:nyxx/src/http/request.dart';
 import 'package:nyxx/src/http/route.dart';
