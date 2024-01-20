@@ -117,17 +117,6 @@ abstract class GatewayManager {
     final response = await client.httpHandler.executeSafe(request);
     return parseGatewayConfiguration(response.jsonBody as Map<String, Object?>);
   }
-
-  /// Fetch the current gateway configuration for the client.
-  Future<GatewayBot> fetchGatewayBot() async {
-    final route = HttpRoute()
-      ..gateway()
-      ..bot();
-    final request = BasicRequest(route);
-
-    final response = await client.httpHandler.executeSafe(request);
-    return parseGatewayBot(response.jsonBody as Map<String, Object?>);
-  }
 }
 
 class _GatewayManagerImpl extends GatewayManager {

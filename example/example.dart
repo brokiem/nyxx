@@ -10,6 +10,10 @@ void main() async {
   );
 
   await for (final MessageCreateEvent(:message) in client.onMessageCreate) {
-    print('${message.id} sent by ${message.author.id} in ${message.channelId}!');
+    print('Message ${message.id} sent by ${message.author.username} in channel ${message.channelId}!');
+
+    if (message.content.contains('nyxx')) {
+      await message.react(ReactionBuilder(name: '❤️', id: null));
+    }
   }
 }

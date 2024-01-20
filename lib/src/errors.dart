@@ -97,14 +97,14 @@ class ShardDisconnectedError extends Error {
 ///
 /// The threshold for this can be configured in [GatewayClientOptions.minimumSessionStarts].
 class OutOfRemainingSessionsError extends Error {
-  /// The [GatewayBot] containing the information that triggered the error.
-  final GatewayBot gatewayBot;
+  /// The [GatewayConfiguration] containing the information that triggered the error.
+  final GatewayConfiguration gatewayBot;
 
   /// Create a new [OutOfRemainingSessionsError].
   OutOfRemainingSessionsError(this.gatewayBot);
 
   @override
-  String toString() => 'Out of remaining session starts (${gatewayBot.sessionStartLimit.remaining} left)';
+  String toString() => 'Out of remaining session starts (N/A left)';
 }
 
 /// An error thrown when [MessageResponse.acknowledge] is called on an already acknowledged interaction.

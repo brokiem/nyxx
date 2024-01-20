@@ -90,9 +90,7 @@ abstract class Nyxx {
     return _doConnect(apiOptions, clientOptions, () async {
       final client = NyxxRest._(apiOptions, clientOptions);
 
-      return client
-        .._application = await client.applications.fetchCurrentApplication()
-        .._user = await client.users.fetchCurrentUser();
+      return client;
     }, clientOptions.plugins);
   }
 
@@ -111,9 +109,7 @@ abstract class Nyxx {
     return _doConnect(apiOptions, clientOptions, () async {
       final client = NyxxOAuth2._(apiOptions, clientOptions);
 
-      return client
-        .._application = await client.applications.fetchCurrentApplication()
-        .._user = await client.users.fetchCurrentUser();
+      return client;
     }, clientOptions.plugins);
   }
 
@@ -139,15 +135,11 @@ abstract class Nyxx {
     return _doConnect(apiOptions, clientOptions, () async {
       final client = NyxxGateway._(apiOptions, clientOptions);
 
-      client
-        .._application = await client.applications.fetchCurrentApplication()
-        .._user = await client.users.fetchCurrentUser();
-
       // We can't use client.gateway as it is not initialized yet
       final gatewayManager = GatewayManager(client);
 
-      final gatewayBot = await gatewayManager.fetchGatewayBot();
-      return client..gateway = await Gateway.connect(client, gatewayBot);
+      final gateway = await gatewayManager.fetchGatewayConfiguration();
+      return client..gateway = await Gateway.connect(client, gateway);
     }, clientOptions.plugins);
   }
 

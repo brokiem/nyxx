@@ -49,8 +49,8 @@ class Gateway extends GatewayManager with EventParser {
   @override
   final NyxxGateway client;
 
-  /// The [GatewayBot] instance used to configure this [Gateway].
-  final GatewayBot gatewayBot;
+  /// The [GatewayConfiguration] instance used to configure this [Gateway].
+  final GatewayConfiguration gatewayBot;
 
   /// The total number of shards running in the client's session.
   final int totalShards;
@@ -101,8 +101,8 @@ class Gateway extends GatewayManager with EventParser {
 
     // https://discord.com/developers/docs/topics/gateway#rate-limiting
     const identifyDelay = Duration(seconds: 5);
-    final maxConcurrency = gatewayBot.sessionStartLimit.maxConcurrency;
-    var remainingIdentifyRequests = gatewayBot.sessionStartLimit.remaining;
+    final maxConcurrency = 1;
+    var remainingIdentifyRequests = 999;
 
     // A mapping of rateLimitId (shard.id % maxConcurrency) to Futures that complete when the identify lock for that rate_limit_key is no longer used.
     final identifyLocks = <int, Future<void>>{};
@@ -157,34 +157,13 @@ class Gateway extends GatewayManager with EventParser {
   }
 
   /// Connect to the gateway using the provided [client] and [gatewayBot] configuration.
-  static Future<Gateway> connect(NyxxGateway client, GatewayBot gatewayBot) async {
+  static Future<Gateway> connect(NyxxGateway client, GatewayConfiguration gatewayBot) async {
     final logger = Logger('${client.options.loggerName}.Gateway');
 
-    final totalShards = client.apiOptions.totalShards ?? gatewayBot.shards;
-    final List<int> shardIds = client.apiOptions.shards ?? List.generate(totalShards, (i) => i);
+    final int totalShards = 1;
+    final List<int> shardIds = client.apiOptions.shards ?? List.generate(1, (i) => i);
 
-    logger
-      ..info('Connecting ${shardIds.length}/$totalShards shards')
-      ..fine('Shard IDs: $shardIds')
-      ..fine(
-        'Gateway URL: ${gatewayBot.url}, Recommended Shards: ${gatewayBot.shards}, Max Concurrency: ${gatewayBot.sessionStartLimit.maxConcurrency},'
-        ' Remaining Session Starts: ${gatewayBot.sessionStartLimit.remaining}, Reset After: ${gatewayBot.sessionStartLimit.resetAfter}',
-      );
-
-    assert(
-      shardIds.every((element) => element < totalShards),
-      'Shard ID exceeds total shard count',
-    );
-
-    assert(
-      shardIds.every((element) => element >= 0),
-      'Invalid shard ID',
-    );
-
-    assert(
-      shardIds.toSet().length == shardIds.length,
-      'Duplicate shard ID',
-    );
+    logger.fine('Gateway URL: ${gatewayBot.url}');
 
     assert(
       client.apiOptions.compression != GatewayCompression.payload || client.apiOptions.payloadFormat != GatewayPayloadFormat.etf,
@@ -300,10 +279,6 @@ class Gateway extends GatewayManager with EventParser {
       gatewayResumeUrl: Uri.parse(raw['resume_gateway_url'] as String),
       shardId: (raw['shard'] as List<Object?>?)?[0] as int?,
       totalShards: (raw['shard'] as List<Object?>?)?[1] as int?,
-      application: PartialApplication(
-        id: Snowflake.parse((raw['application'] as Map<String, Object?>)['id']!),
-        manager: client.applications,
-      ),
     );
   }
 

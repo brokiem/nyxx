@@ -142,12 +142,5 @@ void main() {
       (client) => client.gateway.fetchGatewayConfiguration(),
       response: sampleGateway,
     );
-
-    testEndpoint(
-      '/gateway/bot',
-      name: 'fetchGatewayBot',
-      (client) => client.gateway.fetchGatewayBot(),
-      response: sampleGatewayBot,
-    );
   });
 }

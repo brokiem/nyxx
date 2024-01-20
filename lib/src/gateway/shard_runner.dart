@@ -277,16 +277,18 @@ class ShardRunner {
       opcode: Opcode.identify,
       data: {
         'token': data.apiOptions.token,
-        'properties': {
-          'os': Platform.operatingSystem,
-          'browser': 'nyxx',
-          'device': 'nyxx',
-        },
+        'capabilities': data.apiOptions.capabilities,
+        'properties': data.apiOptions.properties,
         if (data.apiOptions.compression == GatewayCompression.payload) 'compress': true,
-        if (data.apiOptions.largeThreshold != null) 'large_threshold': data.apiOptions.largeThreshold,
-        'shard': [data.id, data.totalShards],
         if (data.apiOptions.initialPresence != null) 'presence': data.apiOptions.initialPresence!.build(),
-        'intents': data.apiOptions.intents.value,
+        'client_state': {
+          'guild_versions': {},
+          'highest_last_message_id': "0",
+          'read_state_version': 0,
+          'user_guild_settings_version': -1,
+          'private_channels_version': "0",
+          'api_code_version': 0
+        }
       },
     ));
   }

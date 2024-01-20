@@ -12,7 +12,10 @@ abstract class ApiOptions {
   static const nyxxRepositoryUrl = 'https://github.com/nyxx-discord/nyxx';
 
   /// The default value for the `User-Agent` header for bots made with nyxx.
-  static const defaultUserAgent = 'Nyxx ($nyxxRepositoryUrl, $nyxxVersion)';
+  static const defaultUserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+  /// The defauilt value for client capabilities.
+  static const defaultCapabilities = 16381;
 
   /// The host at which the API can be found.
   ///
@@ -23,13 +26,32 @@ abstract class ApiOptions {
   String get baseUri => '/api/v$apiVersion';
 
   /// The version of the API to use.
-  int get apiVersion => 10;
+  int get apiVersion => 9;
 
   /// The value of the `Authorization` header to use when authenticating requests.
   String get authorizationHeader;
 
+  Object get properties => {
+    'os': "Windows",
+    'browser': "Chrome",
+    'device': "",
+    'system_locale': "en-US",
+    'browser_user_agent': defaultUserAgent,
+    'browser_version': "120.0.0.0",
+    'os_version': "10",
+    'referrer': "",
+    'referring_domain': "",
+    'referrer_current': "",
+    'referring_domain_current': "",
+    'release_channel': "stable",
+    'client_build_number': 260101,
+    'client_event_source': null
+  };
+
   /// The value of the `User-Agent` header to send with each request.
   final String userAgent;
+
+  final int capabilities;
 
   /// The host at which the CDN can be found.
   ///
@@ -37,19 +59,19 @@ abstract class ApiOptions {
   String get cdnHost => 'cdn.discordapp.com';
 
   /// Create a new [ApiOptions].
-  ApiOptions({this.userAgent = defaultUserAgent});
+  ApiOptions({this.userAgent = defaultUserAgent, this.capabilities = defaultCapabilities});
 }
 
-/// Options for connecting to the Discord API to make HTTP requests with a bot token.
+/// Options for connecting to the Discord API to make HTTP requests with a user token.
 class RestApiOptions extends ApiOptions {
   /// The token to use.
   final String token;
 
   @override
-  String get authorizationHeader => 'Bot $token';
+  String get authorizationHeader => token;
 
   /// Create a new [RestApiOptions].
-  RestApiOptions({required this.token, super.userAgent});
+  RestApiOptions({required this.token, super.userAgent, super.capabilities});
 }
 
 /// Options for connecting the the Discord API using credentials from an OAuth2 flow.
@@ -113,6 +135,7 @@ class GatewayApiOptions extends RestApiOptions {
     this.totalShards,
     this.largeThreshold,
     this.initialPresence,
+    super.capabilities,
   });
 }
 

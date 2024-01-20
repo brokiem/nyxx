@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' hide MultipartRequest;
 import 'package:http/http.dart' as http show MultipartRequest;
 import 'package:nyxx/src/client.dart';
@@ -76,6 +78,19 @@ abstract class HttpRequest {
         userAgent: client.apiOptions.userAgent,
         if (auditLogReason != null) xAuditLogReason: auditLogReason!,
         if (authenticated) authorization: client.apiOptions.authorizationHeader,
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Origin': 'https://discord.com',
+        'Referer': 'https://discord.com/channels/@me',
+        'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '"Windows"',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'X-Debug-Options': 'bugReporterEnabled',
+        'X-Discord-Locale': 'en-US',
+        'X-Discord-Timezone': 'Universal',
+        'X-Super-Properties': base64Encode(utf8.encode(jsonEncode(client.apiOptions.properties))),
         ...headers,
       };
 
