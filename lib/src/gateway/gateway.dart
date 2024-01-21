@@ -160,7 +160,7 @@ class Gateway extends GatewayManager with EventParser {
     final logger = Logger('${client.options.loggerName}.Gateway');
 
     final int totalShards = 1;
-    final List<int> shardIds = client.apiOptions.shards ?? List.generate(1, (i) => i);
+    final List<int> shardIds = client.apiOptions.shards ?? List.generate(totalShards, (i) => i);
 
     logger.fine('Gateway URL: ${gatewayBot.url}');
 
