@@ -272,7 +272,7 @@ class Gateway extends GatewayManager with EventParser {
       user: client.users.parse(raw['user'] as Map<String, Object?>),
       guilds: parseMany(
         raw['guilds'] as List<Object?>,
-        (Map<String, Object?> raw) => PartialGuild(id: Snowflake.parse(raw['id']!), manager: client.guilds),
+        (Map<String, Object?> raw) => client.guilds.parse(raw)
       ),
       sessionId: raw['session_id'] as String,
       gatewayResumeUrl: Uri.parse(raw['resume_gateway_url'] as String),

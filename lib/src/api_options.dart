@@ -15,7 +15,7 @@ abstract class ApiOptions {
   static const defaultUserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
   /// The defauilt value for client capabilities.
-  static const defaultCapabilities = 16381;
+  static const defaultCapabilities = 15359;
 
   /// The host at which the API can be found.
   ///
