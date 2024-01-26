@@ -24,14 +24,6 @@ abstract class GatewayManager {
     return GatewayConfiguration(url: Uri.parse(raw['url'] as String));
   }
 
-  GatewayBot parseGatewayBot(Map<String, Object?> raw) {
-    return GatewayBot(
-      url: Uri.parse(raw['url'] as String),
-      shards: raw['shards'] as int,
-      sessionStartLimit: parseSessionStartLimit(raw['session_start_limit'] as Map<String, Object?>),
-    );
-  }
-
   SessionStartLimit parseSessionStartLimit(Map<String, Object?> raw) {
     return SessionStartLimit(
       total: raw['total'] as int,

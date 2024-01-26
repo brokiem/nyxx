@@ -182,9 +182,6 @@ extension RouteHelpers on HttpRoute {
   /// Adds the [`gateway`](https://discord.com/developers/docs/topics/gateway#get-gateway) part to this [HttpRoute].
   void gateway() => add(HttpRoutePart("gateway"));
 
-  /// Adds the [`bot`](https://discord.com/developers/docs/topics/gateway#get-gateway-bot) part to this [HttpRoute].
-  void bot() => add(HttpRoutePart("bot"));
-
   /// Adds the [`oauth2`](https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information) part to this [HttpRoute].
   void oauth2() => add(HttpRoutePart("oauth2"));
 

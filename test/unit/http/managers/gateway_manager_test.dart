@@ -110,19 +110,6 @@ void main() {
       ).runWithManager(GatewayManager(client));
     });
 
-    test('parseGatewayBot', () {
-      final client = MockNyxx();
-      when(() => client.apiOptions).thenReturn(RestApiOptions(token: 'TEST_TOKEN'));
-      when(() => client.options).thenReturn(RestClientOptions());
-
-      ParsingTest<GatewayManager, GatewayBot, Map<String, Object?>>(
-        name: 'parseGatewayBot',
-        source: sampleGatewayBot,
-        parse: (manager) => manager.parseGatewayBot,
-        check: checkGatewayBot,
-      ).runWithManager(GatewayManager(client));
-    });
-
     test('parseActivity', () {
       final client = MockNyxx();
       when(() => client.apiOptions).thenReturn(RestApiOptions(token: 'TEST_TOKEN'));
