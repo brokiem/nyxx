@@ -92,6 +92,7 @@ extension CacheUpdates on NyxxRest {
 
             entity.roleList.forEach(updateCacheWith);
             entity.emojiList.forEach(updateCacheWith);
+            entity.channelList.forEach(updateCacheWith);
             entity.stickerList.forEach(updateCacheWith);
           }(),
         Member() => () {
@@ -166,7 +167,10 @@ extension CacheUpdates on NyxxRest {
 
         // Events
 
-        ReadyEvent(:final user) => updateCacheWith(user),
+        ReadyEvent(:final user, :final guilds) => () {
+            updateCacheWith(user);
+            guilds.forEach(updateCacheWith);
+          }(),
         ResumedEvent() => null,
         ApplicationCommandPermissionsUpdateEvent(:final permissions) => updateCacheWith(permissions),
         AutoModerationRuleCreateEvent(:final rule) => updateCacheWith(rule),

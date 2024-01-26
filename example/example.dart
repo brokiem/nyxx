@@ -9,6 +9,17 @@ void main() async {
     options: GatewayClientOptions(plugins: [logging, cliIntegration]),
   );
 
+  client.onReady.listen((final ReadyEvent event) {
+    print('Ready!');
+
+    // get guilds
+    final guilds = client.guilds.cache.values.toList();
+    // print all guild details
+    for (final guild in guilds) {
+      print('Guild ${guild.name} has ${guild.channelList.length} channels');
+    }
+  });
+
   await for (final MessageCreateEvent(:message) in client.onMessageCreate) {
     print('Message ${message.id} sent by ${message.author.username} in channel ${message.channelId}!');
 

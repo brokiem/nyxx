@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:nyxx/nyxx.dart';
 import 'package:nyxx/src/builders/channel/channel_position.dart';
 import 'package:nyxx/src/builders/channel/guild_channel.dart';
 import 'package:nyxx/src/builders/guild/template.dart';
@@ -66,6 +67,9 @@ class PartialGuild extends WritableSnowflakeEntity<Guild> {
 
   /// An [EmojiManager] for the emojis of this guild.
   EmojiManager get emojis => EmojiManager(manager.client.options.emojiCacheConfig, manager.client, guildId: id);
+
+  /// An [ChannelManager] for the channels of this guild.
+  ChannelManager get channels => ChannelManager(manager.client.options.channelCacheConfig, manager.client, stageInstanceConfig: manager.client.options.stageInstanceCacheConfig);
 
   /// An [GuildStickerManager] for the stickers of this guild.
   GuildStickerManager get stickers => GuildStickerManager(manager.client.options.stickerCacheConfig, manager.client, guildId: id);
@@ -259,6 +263,10 @@ class Guild extends PartialGuild {
   // Renamed to avoid conflict with the emojis manager.
   final List<Emoji> emojiList;
 
+  /// A list of channels in this guild.
+  /// Renamed to avoid conflict with the channels manager.
+  final List<Channel> channelList;
+
   /// A set of features enabled in this guild.
   final GuildFeatures features;
 
@@ -381,6 +389,7 @@ class Guild extends PartialGuild {
     required this.nsfwLevel,
     required this.hasPremiumProgressBarEnabled,
     required this.emojiList,
+    required this.channelList,
     required this.stickerList,
     required this.safetyAlertsChannelId,
   });
