@@ -270,10 +270,7 @@ class Gateway extends GatewayManager with EventParser {
       gateway: this,
       version: raw['v'] as int,
       user: client.users.parse(raw['user'] as Map<String, Object?>),
-      guilds: parseMany(
-        raw['guilds'] as List<Object?>,
-        (Map<String, Object?> raw) => client.guilds.parse(raw)
-      ),
+      guilds: parseMany(raw['guilds'] as List<Object?>, client.guilds.parse),
       sessionId: raw['session_id'] as String,
       gatewayResumeUrl: Uri.parse(raw['resume_gateway_url'] as String),
       shardId: (raw['shard'] as List<Object?>?)?[0] as int?,
