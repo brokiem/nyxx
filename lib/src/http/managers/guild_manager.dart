@@ -86,7 +86,7 @@ class GuildManager extends Manager<Guild> {
       nsfwLevel: NsfwLevel.parse(raw['nsfw_level'] as int),
       hasPremiumProgressBarEnabled: raw['premium_progress_bar_enabled'] as bool,
       emojiList: parseMany(raw['emojis'] as List, this[id].emojis.parse),
-      channelList: parseMany(raw['channels'] as List, (Map<String, Object?> raw) => this[id].channels.parse(raw, guildId: id)),
+      channelList: parseMany(raw['channels'] as List? ?? [], (Map<String, Object?> raw) => this[id].channels.parse(raw, guildId: id)),
       stickerList: parseMany(raw['stickers'] as List? ?? [], this[id].stickers.parse),
       safetyAlertsChannelId: maybeParse(raw['safety_alerts_channel_id'], Snowflake.parse),
     );
