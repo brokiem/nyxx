@@ -1,5 +1,6 @@
 import 'package:nyxx/src/builders/presence.dart';
 import 'package:nyxx/src/intents.dart';
+import 'package:nyxx/src/models/capabilities.dart';
 import 'package:nyxx/src/utils/flags.dart';
 import 'package:oauth2/oauth2.dart';
 
@@ -15,7 +16,7 @@ abstract class ApiOptions {
   static const defaultUserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
   /// The defauilt value for client capabilities.
-  static const defaultCapabilities = 15359;
+  static const defaultCapabilities = Capabilities(12735);
 
   /// The host at which the API can be found.
   ///
@@ -51,7 +52,7 @@ abstract class ApiOptions {
   /// The value of the `User-Agent` header to send with each request.
   final String userAgent;
 
-  final int capabilities;
+  final Flags<Capabilities> capabilities;
 
   /// The host at which the CDN can be found.
   ///

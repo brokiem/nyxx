@@ -277,7 +277,7 @@ class ShardRunner {
       opcode: Opcode.identify,
       data: {
         'token': data.apiOptions.token,
-        'capabilities': data.apiOptions.capabilities,
+        'capabilities': data.apiOptions.capabilities.value,
         'properties': data.apiOptions.properties,
         if (data.apiOptions.compression == GatewayCompression.payload) 'compress': true,
         if (data.apiOptions.initialPresence != null) 'presence': data.apiOptions.initialPresence!.build(),
